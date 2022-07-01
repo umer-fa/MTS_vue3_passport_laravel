@@ -3,34 +3,38 @@
         Wellcome, this page will show to all user
         {{data}}
         <a class="nav-item nav-link" @click="getData">getdata</a>
-        <counter></counter>
-
-        <button @click="sendUpdateCountAction">Increment</button>
-        <button @click="sendUpdateCountAction1">decreemnet</button>
     </div>
 </template>
 
 <script>
-import counter from './counter.vue';
 export default {
     name: "Home",
-    components:{
-        counter,
-    },
     data() {
         return {
             data:[],
         }
     },
-    computed: {
-        // ...mapState(['count'])
+    created() {
     },
     methods: {
-        sendUpdateCountAction() {
-            this.$store.dispatch('addCount',1)
-        },sendUpdateCountAction1() {
-            this.$store.dispatch('subCount',1)
-        },
-    }
+        getData(e) {
+            e.preventDefault()
+            // this.$axios.get('sanctum/csrf-cookie').then(response => {
+                this.$axios.post('api/umer')
+                    .then(response => {
+                        if(response.data) {
+                            this.data = response.data;
+                        } else {
+                            console.log(response);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+            // });
+        }
+    }, beforeRouteEnter(to, from, next) {
+    next();
+}
 }
 </script>
