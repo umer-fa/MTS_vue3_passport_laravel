@@ -70,10 +70,10 @@ export default {
         }
     },
     created() {
-        if (window.Laravel.user) {
-            this.name = window.Laravel.user.name
-        }
-        this.getParent();
+        // if (window.Laravel.user) {
+        //     this.name = window.Laravel.user.name
+        // }
+        // this.getParent();
         const params = (new URL(document.location)).searchParams;
         if(params.get('id')){
             this.form.id = params.get('id');
@@ -82,19 +82,19 @@ export default {
         }
     },
     methods:{
-        getParent(){
-            this.$axios.get('sanctum/csrf-cookie').then(response => {
-                this.$axios.post("api/parentcategory").then(response => {
-                    if(response.data.success){
-                        this.parent =  response.data.data;
-                    }
-                    else{
-                        this.error_msg = response.data.message;
-                        this.success_msg = null;
-                    }
-                });
-            })
-        },
+        // getParent(){
+        //     this.$axios.get('sanctum/csrf-cookie').then(response => {
+        //         this.$axios.post("api/parentcategory").then(response => {
+        //             if(response.data.success){
+        //                 this.parent =  response.data.data;
+        //             }
+        //             else{
+        //                 this.error_msg = response.data.message;
+        //                 this.success_msg = null;
+        //             }
+        //         });
+        //     })
+        // },
         Back(){
             this.$router.back();
         },

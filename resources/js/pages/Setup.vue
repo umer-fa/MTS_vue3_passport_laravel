@@ -392,7 +392,7 @@ export default {
                 language:'English',
             },
             biz_form:{
-                user_id:window.Laravel.user.id,
+                user_id:0,
                 bus_name:null,
                 package:null,
                 billing_cycle:null,
@@ -420,19 +420,19 @@ export default {
         }
     },
     created() {
-        if(window.Laravel.user.profile_done==1){
-            this.step=2;
-            this.title = 'Business Info';
-        }
-        if (window.Laravel.user) {
-            this.name = window.Laravel.user.name
-            if(window.Laravel.user.profile_done==2){
-                this.$router.push('/dashboard');
-            }
-            else if(this.$route.name!='setup'){
-                this.$router.push('/setup');
-            }
-        }
+        // if(window.Laravel.user.profile_done==1){
+        //     this.step=2;
+        //     this.title = 'Business Info';
+        // }
+        // if (window.Laravel.user) {
+        //     this.name = window.Laravel.user.name
+        //     if(window.Laravel.user.profile_done==2){
+        //         this.$router.push('/dashboard');
+        //     }
+        //     else if(this.$route.name!='setup'){
+        //         this.$router.push('/setup');
+        //     }
+        // }
     },
     methods:{
         check_biz(){

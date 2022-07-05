@@ -45,15 +45,15 @@ export default {
         }
     },
     created() {
-        if (window.Laravel.user) {
-            this.name = window.Laravel.user.name
-        }
+        // if (window.Laravel.user) {
+        //     this.name = window.Laravel.user.name
+        // }
     },
     beforeMount(){
-        axios.post('api/category').then(response => {
-            this.categories = response.data.message;
-            this.parents = response.data.parents
-        });
+        // axios.post('api/category').then(response => {
+        //     this.categories = response.data.message;
+        //     this.parents = response.data.parents
+        // });
     },
 }
 </script>

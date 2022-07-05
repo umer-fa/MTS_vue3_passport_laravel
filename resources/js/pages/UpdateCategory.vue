@@ -70,9 +70,9 @@ export default {
         }
     },
     created() {
-        if (window.Laravel.user) {
-            this.name = window.Laravel.user.name
-        }
+        // if (window.Laravel.user) {
+        //     this.name = window.Laravel.user.name
+        // }
         this.getParent();
         const params = (new URL(document.location)).searchParams;
         if(params.get('id')){

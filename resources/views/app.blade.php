@@ -18,8 +18,6 @@
 {{--{{\DB::connection()->getDatabaseName()}}--}}
 <div id="app"></div>
 <script src="{{ asset('js/app.js') }}"></script>
-
-
 <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 <script src="{{asset('fillow/vendor/global/global.min.js')}}"></script>
 <script src="{{asset('fillow/js/dlabnav-init.js')}}"></script>

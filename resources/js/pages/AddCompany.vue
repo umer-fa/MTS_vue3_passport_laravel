@@ -35,9 +35,9 @@ export default {
         }
     },
     created() {
-        if (window.Laravel.user) {
-            this.name = window.Laravel.user.name
-        }
+        // if (window.Laravel.user) {
+        //     this.name = window.Laravel.user.name
+        // }
     },
     // beforeRouteEnter(to, from, next) {
     //     if (!window.Laravel.isLoggedin) {
