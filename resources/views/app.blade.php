@@ -15,7 +15,7 @@
     <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-{{\DB::connection()->getDatabaseName()}}
+{{--{{\DB::connection()->getDatabaseName()}}--}}
 <div id="app"></div>
 <script src="{{ asset('js/app.js') }}"></script>
 
