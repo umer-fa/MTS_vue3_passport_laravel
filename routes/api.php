@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('test',[AuthController::class,'test']);
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
+//Route::post('me', function (Request $request){
+//    dd($request->all());
+//});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('me', [AuthController::class, 'me']);

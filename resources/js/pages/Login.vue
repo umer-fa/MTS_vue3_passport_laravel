@@ -79,7 +79,8 @@
                     .then(response => {
                         if (response.data.success) {
                             this.save_token(response.data.access_token);
-                            this.$router.push('/dashboard')
+                            // this.$router.push('/dashboard');
+                            window.location.reload();
                         } else {
                             this.error = response.data.message
                         }
@@ -96,8 +97,15 @@
                 this.$store.dispatch('deleteToken')
             }
         },
-
+        created() {
+            if(this.$store.state.access_token){
+                this.$router.push('/dashboard');
+            }
+        },
         beforeRouteEnter(to, from, next) {
+            // if(this.$store.state.access_token){
+            //     this.$router.push('/dashboard');
+            // }
             next();
             // localStorage.clear();
         }

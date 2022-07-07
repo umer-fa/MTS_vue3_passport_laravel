@@ -10,7 +10,7 @@
                                     <div class="col-xl-7 col-sm-6">
                                         <h2 class="text-black">Manage your project in one touch</h2>
                                         <span class="text-black">Let Fillow manage your project automatically with our best AI systems </span>
-                                        <a href="javascript:void(0);" class="btn btn-rounded  fs-18 font-w500">Try Free Now</a>
+                                        <a href="javascript:void(0);" @click="getData" class="btn btn-rounded  fs-18 font-w500">Try Free Now</a>
                                     </div>
                                     <div class="col-xl-5 col-sm-6">
                                         <img src="fillow/images/chart.png" alt="" class="sd-shape">
@@ -660,6 +660,7 @@ export default {
     name: "Dashboard",
     data() {
         return {
+            token:this.$store.state.access_token,
             name: null,
             data:[],
         }
@@ -681,19 +682,21 @@ export default {
     methods: {
         getData(e) {
             e.preventDefault()
-            this.$axios.get('sanctum/csrf-cookie').then(response => {
-                this.$axios.post('api/umer')
-                    .then(response => {
-                        if(response.data) {
-                            this.data = response.data;
-                        } else {
-                            console.log(response);
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error(error);
-                    });
+            this.$axios.defaults.headers.common['Content-Type'] = 'application/json';
+            this.$axios.defaults.headers.common['Accept'] = 'application/json';
+            this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
+            this.$axios.post('api/me')
+            .then(response => {
+                if(response.data) {
+                    this.data = response.data;
+                    console.log(response.data);
+                } else {
+                    console.log(response);
+                }
             })
+            .catch(function (error) {
+                console.error(error);
+            });
         }
     },
 }
