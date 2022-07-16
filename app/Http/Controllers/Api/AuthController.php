@@ -37,8 +37,7 @@ class AuthController extends Controller
         return response([ 'status' => true, 'message' => 'User successfully register.' ], 200);
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         $requestData = $request->all();
         $validator = Validator::make($requestData,[
             'email' => 'email|required',
@@ -50,19 +49,33 @@ class AuthController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-
         if(! auth()->attempt($requestData)){
             return response()->json(['error' => 'UnAuthorised Access'], 401);
         }
-
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        $cookie = $this->getCookieDetails($accessToken);
+        return response()->json(["success"=>true,'user' => auth()->user(), 'access_token' => true], 200)->cookie($cookie['name'], $cookie['value'],
+            $cookie['minutes'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly'], $cookie['samesite']);
+    }
 
-        return response(["success"=>true,'user' => auth()->user(), 'access_token' => $accessToken], 200);
+    private function getCookieDetails($token)
+    {
+        return [
+            'name' => '_token',
+            'value' => $token,
+            'minutes' => 1440,
+            'path' => null,
+            'domain' => null,
+            // 'secure' => true, // for production
+            'secure' => null, // for localhost
+            'httponly' => true,
+            'samesite' => true,
+        ];
     }
 
     public function me(Request $request)
     {
-        echo DB::connection()->getDatabaseName();
+//        echo DB::connection()->getDatabaseName();
         $user = $request->user();
         return response()->json(['user' => $user], 200);
     }

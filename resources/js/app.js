@@ -10,10 +10,9 @@ import axios from 'axios';
 import store from "./store";
 
 const app = createApp(App);
-app.unmount();
-
-app.config.globalProperties.$axios = axios;
-app.use(router);
-app.use(store);
-app.mount('#app');
-
+// window.renderSomething = function() {
+    app.config.globalProperties.$axios = axios;
+    app.use(router);
+    app.use(store);
+    app.mount('#app');
+// }

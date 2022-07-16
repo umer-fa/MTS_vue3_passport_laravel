@@ -57,9 +57,8 @@ class AppServiceProvider extends ServiceProvider
     {
 
         if (! $this->app->routesAreCached()) {
+//            $this->registerPolicies();
             Passport::routes();
-            Passport::tokensExpireIn(now()->addDays(15));
-            Passport::refreshTokensExpireIn(now()->addDays(30));
         }
     }
 }

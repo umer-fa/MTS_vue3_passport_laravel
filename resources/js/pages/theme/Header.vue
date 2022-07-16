@@ -616,7 +616,8 @@
         methods: {
             logout(e) {
                 this.delete_token();
-                window.location.reload();
+                this.$router.push('/login');
+                // window.location.reload();
             },
             delete_token(){
                 this.$store.dispatch('deleteToken')

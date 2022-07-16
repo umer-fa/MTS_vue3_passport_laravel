@@ -20453,12 +20453,15 @@ __webpack_require__.r(__webpack_exports__);
           password: this.password
         }).then(function (response) {
           if (response.data.success) {
-            _this.save_token(response.data.access_token); // this.$router.push('/dashboard');
+            console.log(response.data);
 
+            _this.save_token(response.data.access_token);
+
+            _this.$router.push('/dashboard');
 
             window.location.reload();
           } else {
-            _this.error = response.data.message;
+            _this.error = response.data;
           }
         })["catch"](function (error) {
           console.error(error);
@@ -21087,7 +21090,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     logout: function logout(e) {
       this.delete_token();
-      window.location.reload();
+      this.$router.push('/login'); // window.location.reload();
     },
     delete_token: function delete_token() {
       this.$store.dispatch('deleteToken');
@@ -25949,12 +25952,12 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-var app = (0,vue_dist_vue_cjs__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-app.unmount();
+var app = (0,vue_dist_vue_cjs__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]); // window.renderSomething = function() {
+
 app.config.globalProperties.$axios = (axios__WEBPACK_IMPORTED_MODULE_3___default());
 app.use(_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.use(_store__WEBPACK_IMPORTED_MODULE_4__["default"]);
-app.mount('#app');
+app.mount('#app'); // }
 
 /***/ }),
 

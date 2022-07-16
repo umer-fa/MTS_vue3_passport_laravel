@@ -78,11 +78,12 @@
                     })
                     .then(response => {
                         if (response.data.success) {
+                            console.log(response.data);
                             this.save_token(response.data.access_token);
-                            // this.$router.push('/dashboard');
+                            this.$router.push('/dashboard');
                             window.location.reload();
                         } else {
-                            this.error = response.data.message
+                            this.error = response.data
                         }
                     })
                     .catch(function (error) {
