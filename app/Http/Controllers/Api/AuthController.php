@@ -28,6 +28,7 @@ class AuthController extends Controller
             return response()->json([
                 'errors' => $validator->errors()
             ], 422);
+            exit();
         }
 
         $requestData['password'] = Hash::make($requestData['password']);
