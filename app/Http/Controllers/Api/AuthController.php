@@ -48,10 +48,11 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors()
-            ], 422);
+            ], 422); exit();
         }
         if(! auth()->attempt($requestData)){
             return response()->json(['error' => 'UnAuthorised Access'], 401);
+            exit();
         }
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
         $cookie = $this->getCookieDetails($accessToken);

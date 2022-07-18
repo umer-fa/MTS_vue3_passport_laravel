@@ -22,6 +22,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Password</strong></label>
+                                            <small v-if="password_require" style="font-size: 13px;" class="text-danger m-2">{{pass_msg}}</small>
                                             <input type="password" class="form-control" v-model="password">
                                         </div>
                                         <div class="row d-flex justify-content-between mt-4 mb-2">
@@ -61,6 +62,8 @@
             return {
                 email: "hetro@gmail.com",
                 password: "admin123",
+                pass_msg:"Password Is Required",
+                password_require:false,
                 error: null
             }
         },
@@ -72,6 +75,7 @@
             handleSubmit(e) {
                 e.preventDefault();
                 if(this.password.length > 0) {
+                    this.password_require = false;
                     this.$axios.post('api/login', {
                         email: this.email,
                         password: this.password
@@ -89,6 +93,8 @@
                     .catch(function (error) {
                         console.error(error);
                     });
+                }else {
+                    this.password_require = true;
                 }
             },
             save_token(token){

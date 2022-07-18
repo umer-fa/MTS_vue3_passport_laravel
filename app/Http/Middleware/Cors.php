@@ -16,7 +16,7 @@ class Cors
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next) {
-        $request->headers->add(['Authorization' => 'Bearer ' . Cookie::get('token')]);
+        $request->headers->add(['Authorization' => 'Bearer ' . Cookie::get('_token')]);
         return $next($request)
             ->header('Access-Control-Allow-Credentials', 'True')
             ->header('Accept', 'application/json')
