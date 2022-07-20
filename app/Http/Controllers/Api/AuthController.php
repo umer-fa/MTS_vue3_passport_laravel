@@ -34,8 +34,22 @@ class AuthController extends Controller
         $requestData['password'] = Hash::make($requestData['password']);
 
         $user = User::create($requestData);
+        if($user){
+            $schemaName = $request->name;
+            DB::statement('CREATE DATABASE '.$schemaName);
+            if(! auth()->attempt($requestData)){
+                return response()->json(['error' => 'UnAuthorised Access'], 401);
+                exit();
+            }
+            $accessToken = auth()->user()->createToken('authToken')->accessToken;
+            $cookie = $this->getCookieDetails($accessToken);
+            return response()->json(['status' => true, 'message' => 'User successfully register.',"success"=>true,'user' => auth()->user(), 'access_token' => true], 200)->cookie($cookie['name'], $cookie['value'],
+                $cookie['minutes'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly'], $cookie['samesite']);
+//            return response([ 'status' => true, 'message' => 'User successfully register.' ], 200);
+        }else{
+            return response([ 'status' => false, 'message' => 'SomeThing getting wrong.' ], 422);
+        }
 
-        return response([ 'status' => true, 'message' => 'User successfully register.' ], 200);
     }
 
     public function login(Request $request){

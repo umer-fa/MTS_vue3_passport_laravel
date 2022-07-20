@@ -14,16 +14,18 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['middleware' => ['cors']], function () {
 Route::post('test',[AuthController::class,'test']);
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
 
-    Route::group(['middleware' => ['auth:api','cors']], function () {
-        Route::post('me', [AuthController::class, 'me']);
-        Route::post('logout', [AuthController::class, 'logout']);
-    });
+Route::group(['middleware' => ['auth:api','cors']], function () {
+    Route::post('me', [AuthController::class, 'me']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
+
+//this for apply cors middle ware on routes
+//Route::group(['middleware' => ['cors']], function () {
+//});
 
 
 //testing
