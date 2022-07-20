@@ -20671,9 +20671,16 @@ __webpack_require__.r(__webpack_exports__);
         this.password_require = false; // this.$axios.get('sanctum/csrf-cookie').then(response => {
 
         this.$axios.post('api/register', this.form).then(function (response) {
-          if (response.data.success) {// this.$router.go('/login');
+          if (response.data.success) {
+            console.log(response.data);
+
+            _this.save_token(response.data.access_token);
+
+            _this.$router.push('/dashboard');
+
+            window.location.reload();
           } else {
-            _this.error = response.data.message;
+            _this.error = response.data;
           }
         })["catch"](function (error) {
           if (error.response.status == 422) {
@@ -20691,6 +20698,12 @@ __webpack_require__.r(__webpack_exports__);
         //     this.password_require = true;
         // }
       }
+    },
+    save_token: function save_token(token) {
+      this.$store.dispatch('addToken', token);
+    },
+    delete_token: function delete_token() {
+      this.$store.dispatch('deleteToken');
     }
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
@@ -26194,14 +26207,11 @@ function authfunction(to, from, next) {
 }
 
 router.beforeEach(function (to, from, next) {
-  if (to.matched.some(function (record) {
-    return record.meta.requiresAuth;
-  })) {
-    if (Auth.check()) {
-      next();
-      return;
+  if (localStorage.getItem('access_token')) {
+    if (to.path == "/login" || to.path == "/register") {
+      router.push('/dashboard');
     } else {
-      router.push('/login');
+      next();
     }
   } else {
     next();

@@ -76,12 +76,11 @@ function authfunction(to, from, next) {
 }
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth) ) {
-        if (Auth.check()) {
+    if (localStorage.getItem('access_token')) {
+        if(to.path == "/login" || to.path=="/register"){
+            router.push('/dashboard');
+        }else{
             next();
-            return;
-        } else {
-            router.push('/login');
         }
     } else {
         next();

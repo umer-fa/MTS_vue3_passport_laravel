@@ -190,9 +190,12 @@
                             this.$axios.post('api/register', this.form)
                                 .then(response => {
                                     if (response.data.success) {
-                                        // this.$router.go('/login');
+                                        console.log(response.data);
+                                        this.save_token(response.data.access_token);
+                                        this.$router.push('/dashboard');
+                                        window.location.reload();
                                     } else {
-                                        this.error = response.data.message
+                                        this.error = response.data
                                     }
                                 }).catch(error => {
                                     if(error.response.status==422){
@@ -212,6 +215,12 @@
                     //     this.password_require = true;
                     // }
                 }
+            },
+            save_token(token){
+                this.$store.dispatch('addToken',token)
+            },
+            delete_token(){
+                this.$store.dispatch('deleteToken')
             }
         },
 

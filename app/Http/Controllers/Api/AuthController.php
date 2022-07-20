@@ -20,6 +20,7 @@ class AuthController extends Controller
         $requestData = $request->all();
         $validator = Validator::make($requestData,[
             'name' => 'required|max:55',
+            'username' => 'required|unique:users',
             'email' => 'email|required|unique:users',
             'password' => 'required|confirmed'
         ]);
@@ -30,12 +31,15 @@ class AuthController extends Controller
             ], 422);
             exit();
         }
-
-        $requestData['password'] = Hash::make($requestData['password']);
-
-        $user = User::create($requestData);
+        $user = new User();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = Hash::make($requestData['password']);
+        $user->phone = $request->phone;
+        $user->save();
         if($user){
-            $schemaName = $request->name;
+            $schemaName = $request->username;
             DB::statement('CREATE DATABASE '.$schemaName);
             if(! auth()->attempt($requestData)){
                 return response()->json(['error' => 'UnAuthorised Access'], 401);
