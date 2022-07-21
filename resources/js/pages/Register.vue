@@ -71,7 +71,7 @@
                                                             <input type="password" class="form-control" v-model="form.password_confirmation" >
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+<!--                                                    <div class="row">-->
 
                                                         <!--<div class="mb-3 col-md-6">-->
                                                             <!--<label class="mb-1"><strong>Store Name-->
@@ -80,7 +80,7 @@
                                                             <!--</strong></label>-->
                                                             <!--<input type="text" class="form-control" id="store_name" v-model="form.store_name">-->
                                                         <!--</div>-->
-                                                    </div>
+<!--                                                    </div>-->
                                                     <!--<div class="row">-->
                                                         <!--<div class="mb-3 col-md-6">-->
                                                             <!--<label class="mb-1"><strong>Estimated Monthly sales <label class="text text-danger">*</label></strong></label>-->
@@ -190,8 +190,10 @@
                             this.$axios.post('api/register', this.form)
                                 .then(response => {
                                     if (response.data.success) {
-                                        console.log(response.data);
+                                        // console.log(response.data);
                                         this.save_token(response.data.access_token);
+                                        this.save_user(response.data.user);
+                                        this.save_profile(response.data.user.profile_done);
                                         this.$router.push('/dashboard');
                                         window.location.reload();
                                     } else {
@@ -215,6 +217,12 @@
                     //     this.password_require = true;
                     // }
                 }
+            },
+            save_profile(profile){
+                this.$store.dispatch('addProfile',profile)
+            },
+            save_user(user){
+                this.$store.dispatch('addUser',user)
             },
             save_token(token){
                 this.$store.dispatch('addToken',token)

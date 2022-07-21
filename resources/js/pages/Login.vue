@@ -1,7 +1,7 @@
 <template>
     <div class="authincation h-100">
         <div class="container h-100">
-            <div class="row justify-content-center h-100 align-items-center">
+            <div class="row justify-content-center h-100 align-items-center" style="margin-top: 50px">
                 <div class="col-md-6">
                     <div class="authincation-content">
                         <div class="row no-gutters">
@@ -82,8 +82,10 @@
                     })
                     .then(response => {
                         if (response.data.success) {
-                            console.log(response.data);
+                            console.log(response.data.user);
                             this.save_token(response.data.access_token);
+                            this.save_user(response.data.user);
+                            this.save_profile(response.data.user.profile_done);
                             this.$router.push('/dashboard');
                             window.location.reload();
                         } else {
@@ -96,6 +98,12 @@
                 }else {
                     this.password_require = true;
                 }
+            },
+            save_profile(profile){
+                this.$store.dispatch('addProfile',profile)
+            },
+            save_user(user){
+                this.$store.dispatch('addUser',user)
             },
             save_token(token){
                 this.$store.dispatch('addToken',token)

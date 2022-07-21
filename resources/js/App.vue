@@ -1,6 +1,6 @@
 <template>
 
-    <div v-if="this.$store.state.access_token">
+    <div v-if="this.$store.state.access_token && this.$store.state.profile_done==2">
         <div id="main-wrapper">
             <!--**********************************
                 Nav header start
@@ -40,7 +40,9 @@
             ***********************************-->
         </div>
     </div>
-
+    <div v-else-if="this.$store.state.access_token && this.$store.state.profile_done <= 1">
+        <setup></setup>
+    </div>
     <div v-else>
         <nav class="navbar navbar-expand-sm navbar-dark bg-purpel mb-1">
             <a class="navbar-brand" href="#">OOPs</a>

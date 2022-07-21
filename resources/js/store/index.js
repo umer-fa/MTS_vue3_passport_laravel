@@ -4,6 +4,8 @@ const store = createStore({
         return {
             count: JSON.parse(localStorage.getItem('counter')),
             access_token: localStorage.getItem('access_token'),
+            user: localStorage.getItem('access_user'),
+            profile_done:localStorage.getItem('profile_done'),
         };
     },
     getters: {},
@@ -15,6 +17,14 @@ const store = createStore({
         SAVE_TOKEN(state, payload) {
             state.access_token = payload;
             localStorage.setItem('access_token', payload);
+        },
+        SAVE_PROFILE(state, payload) {
+            state.profile_done = payload;
+            localStorage.setItem('profile_done', payload);
+        },
+        SAVE_USER(state, payload) {
+            state.User = payload;
+            localStorage.setItem('access_user', payload);
         },
         INCREASE_COUNT(state, payload) {
             state.count += Number(payload);
@@ -32,8 +42,14 @@ const store = createStore({
         subCount({ commit }, amount) {
             commit('DECRESE_COUNT', amount)
         },
+        addProfile({ commit },value){
+            commit('SAVE_PROFILE',value)
+        },
         addToken({ commit },value){
             commit('SAVE_TOKEN',value)
+        },
+        addUser({ commit },value){
+            commit('SAVE_USER',value)
         },
         deleteToken({ commit },value){
             commit('DELETE_TOKEN',value)

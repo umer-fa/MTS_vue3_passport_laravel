@@ -3,13 +3,14 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="card-title" style="font-size: 45px;">{{title}}</h2>
+<!--                {{this.$store.state.profile_done}}-->
             </div>
             <div class="col-lg-6">
-                <h2 class="steps">Step {{step}} - 3</h2>
+                <h2 class="steps">Step {{step}} - 2</h2>
             </div>
         </div>
         <div class="col-xl-12 col-lg-12">
-            <div class="card card1" v-if="step==1">
+            <div class="card card1" v-if="step==0">
                 <div class="card-body">
                     <div class="basic-form">
                         <form>
@@ -270,7 +271,7 @@
                 </div>
             </div>
             <!--business setup inputs--->
-            <div class="card card1" v-else-if="step==2">
+            <div class="card card1" v-else-if="step==1">
                 <div class="card-body">
                     <div class="basic-form">
                         <form>
@@ -361,10 +362,10 @@
             </div>
             <div class="container">
                 <ul id="progressbar">
-                    <li v-bind:class="(step==1)?'active':''" id="personal"><strong>Personal</strong></li>
-                    <li v-bind:class="(step==2)?'active':''" id="account"><strong>Business</strong></li>
+                    <li v-bind:class="(step==0)?'active':''" id="personal"><strong>Personal</strong></li>
+                    <li v-bind:class="(step==1)?'active':''" id="account"><strong>Business</strong></li>
                     <!--                <li id="payment"><strong>Image</strong></li>-->
-                    <li v-bind:class="(step==3)?'active':''" id="confirm"><strong>Finish</strong></li>
+                    <li v-bind:class="(step==2)?'active':''" id="confirm"><strong>Finish</strong></li>
                 </ul>
             </div>
         </div>
@@ -380,7 +381,7 @@ export default {
             name: null,
             data:[],
             title:'Personal Info',
-            step:1,
+            step:this.$store.state.profile_done,
             form: {
                 address:null,
                 mobile:null,
@@ -436,75 +437,76 @@ export default {
     },
     methods:{
         check_biz(){
-            this.$axios.get('sanctum/csrf-cookie').then(response => {
-                this.$axios.post("api/biz_validate", this.biz_form).then(response => {
-                    if(response.data.success){
-                        this.title = '';
-                        ++this.step;
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 2000);
-                        // this.$router.push('/dashboard');
-                        this.success_msg = response.data.message;
-                        this.error_msg =null;
-                    }
-                    else{
-                        this.error_msg = response.data.message;
-                        this.success_msg = null;
-                    }
-                }).catch(error => {
-                    if(error.response.status==422){
-                        this.billing_cycle = error.response.data.errors.billing_cycle;
-                        this.bus_name = error.response.data.errors.bus_name;
-                        this.category = error.response.data.errors.category;
-                        this.noofshop = error.response.data.errors.noofshop;
-                        this.package = error.response.data.errors.package;
-                        this.timezone = error.response.data.errors.timezone;
-                        this.user_id = error.response.data.errors.user_id;
-                    }
-                    // this.error_email = error.response.data.error.email
+            this.$axios.post("api/biz_validate", this.biz_form).then(response => {
+                if(response.data.success){
+                    this.title = '';
+                    ++this.step;
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+                    // this.$router.push('/dashboard');
+                    this.save_profile(2);
+                    this.success_msg = response.data.message;
+                    this.error_msg =null;
+                }
+                else{
+                    this.error_msg = response.data.message;
+                    this.success_msg = null;
+                }
+            }).catch(error => {
+                if(error.response.status==422){
+                    this.billing_cycle = error.response.data.errors.billing_cycle;
+                    this.bus_name = error.response.data.errors.bus_name;
+                    this.category = error.response.data.errors.category;
+                    this.noofshop = error.response.data.errors.noofshop;
+                    this.package = error.response.data.errors.package;
+                    this.timezone = error.response.data.errors.timezone;
+                    this.user_id = error.response.data.errors.user_id;
+                }
+                // this.error_email = error.response.data.error.email
 
-                });
-            })
+            });
         },
         Save_personal(){
             this.title = '';
-            this.$axios.get('sanctum/csrf-cookie').then(response => {
-                let formData = new FormData();
-                formData.append('address', this.form.address);
-                formData.append('mobile', this.form.mobile);
-                formData.append('image', this.form.image);
-                formData.append('country', this.form.country);
-                formData.append('zip', this.form.zip);
-                formData.append('state', this.form.state);
-                formData.append('city', this.form.city);
-                formData.append('language', this.form.language);
-                this.$axios.post("api/setup", formData,{'content-type': 'multipart/form-data'}).then(response => {
-                    if(response.data.success){
-                        this.title = 'Business Info';
-                        ++this.step;
-                        // window.location.reload();
-                        // this.$router.push('/dashboard');
-                        this.success_msg = response.data.message;
-                        this.error_msg =null;
-                    }
-                    else{
-                        this.error_msg = response.data.message;
-                        this.success_msg = null;
-                    }
-                }).catch(error => {
-                    if(error.response.status==422){
-                        this.address = error.response.data.errors.address;
-                        this.city = error.response.data.errors.city;
-                        this.image = error.response.data.errors.image;
-                        this.mobile = error.response.data.errors.mobile;
-                        this.state = error.response.data.errors.state;
-                        this.zip = error.response.data.errors.zip;
-                    }
-                    // this.error_email = error.response.data.error.email
+            let formData = new FormData();
+            formData.append('address', this.form.address);
+            formData.append('mobile', this.form.mobile);
+            formData.append('image', this.form.image);
+            formData.append('country', this.form.country);
+            formData.append('zip', this.form.zip);
+            formData.append('state', this.form.state);
+            formData.append('city', this.form.city);
+            formData.append('language', this.form.language);
+            this.$axios.post("api/setup", formData,{'content-type': 'multipart/form-data'}).then(response => {
+                if(response.data.success){
+                    this.title = 'Business Info';
+                    ++this.step;
+                    // window.location.reload();
+                    // this.$router.push('/dashboard');
+                    this.success_msg = response.data.message;
+                    this.save_profile(1);
+                    this.error_msg =null;
+                }
+                else{
+                    this.error_msg = response.data.message;
+                    this.success_msg = null;
+                }
+            }).catch(error => {
+                if(error.response.status==422){
+                    this.address = error.response.data.errors.address;
+                    this.city = error.response.data.errors.city;
+                    this.image = error.response.data.errors.image;
+                    this.mobile = error.response.data.errors.mobile;
+                    this.state = error.response.data.errors.state;
+                    this.zip = error.response.data.errors.zip;
+                }
+                // this.error_email = error.response.data.error.email
 
-                });
-            })
+            });
+        },
+        save_profile(profile){
+            this.$store.dispatch('addProfile',profile)
         },
         onFileChange(e) {
             this.form.filename = "Selected File: " + e.target.files[0].name;
