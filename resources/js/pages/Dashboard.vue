@@ -684,7 +684,7 @@ export default {
             e.preventDefault()
             this.$axios.defaults.headers.common['Content-Type'] = 'application/json';
             this.$axios.defaults.headers.common['Accept'] = 'application/json';
-            this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
+            // this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
             this.$axios.post('api/me')
             .then(response => {
                 if(response.data) {

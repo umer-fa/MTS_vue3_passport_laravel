@@ -21,9 +21,10 @@ Route::post('login',[AuthController::class,'login']);
 Route::group(['middleware' => ['auth:api','cors']], function () {
     Route::post('setup',[AuthController::class,'setup']);
     Route::post('biz_validate',[AuthController::class,'biz_validate']);
-
-    Route::post('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::group(['middleware' => ['IsActiveToken']], function () {
+        Route::post('me', [AuthController::class, 'me']);
+    });
 });
 
 //this for apply cors middle ware on routes

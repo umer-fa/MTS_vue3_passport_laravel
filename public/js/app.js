@@ -20357,8 +20357,8 @@ __webpack_require__.r(__webpack_exports__);
 
       e.preventDefault();
       this.$axios.defaults.headers.common['Content-Type'] = 'application/json';
-      this.$axios.defaults.headers.common['Accept'] = 'application/json';
-      this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
+      this.$axios.defaults.headers.common['Accept'] = 'application/json'; // this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
+
       this.$axios.post('api/me').then(function (response) {
         if (response.data) {
           _this.data = response.data;
@@ -20687,6 +20687,8 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.save_user(response.data.user);
 
+            _this.save_profile(response.data.user.profile_done);
+
             _this.$router.push('/dashboard');
 
             window.location.reload();
@@ -20709,6 +20711,9 @@ __webpack_require__.r(__webpack_exports__);
         //     this.password_require = true;
         // }
       }
+    },
+    save_profile: function save_profile(profile) {
+      this.$store.dispatch('addProfile', profile);
     },
     save_user: function save_user(user) {
       this.$store.dispatch('addUser', user);

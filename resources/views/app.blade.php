@@ -11,7 +11,7 @@
     <link href="{{asset('fillow/vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
     <link href="{{asset('fillow/vendor/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{asset('fillow/vendor/nouislider/nouislider.min.css')}}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="{{asset('fillow/vendor/font-awesome.css/font-awesome.css')}}" rel="stylesheet">{{--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">--}}
     <link href="{{asset('fillow/vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet"/>
 </head>
