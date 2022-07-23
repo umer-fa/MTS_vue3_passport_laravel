@@ -666,19 +666,8 @@ export default {
         }
     },
     created() {
-        // if (window.Laravel.user) {
-        //     this.name = window.Laravel.user.name;
-        //     if(window.Laravel.user.profile_done==0){
-        //         this.$router.push('/setup');
-        //     }
-        // }
+        // this.$store.dispatch('deleteToken');
     },
-    // beforeRouteEnter(to, from, next) {
-    //     if (!this.$store.state.access_token) {
-    //         window.location.href = "/laravel-9-vue-3/public/login";
-    //     }
-    //     next();
-    // },
     methods: {
         getData(e) {
             e.preventDefault()

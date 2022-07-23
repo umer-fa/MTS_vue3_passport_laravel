@@ -13,7 +13,7 @@
                                     <h4 class="text-center mb-4">Sign up your account</h4>
                                     <div class="row">
                                         <div class="col-xl-6">
-                                            <img src="fillow/images/signup2.jpg" style="width: 100%; height: 70%;margin-top: 27px;" />
+                                            <img src="fillow/images/circle-hunt.png" style="width: 100%; height: 70%;margin-top: 27px;" />
                                         </div>
                                         <div class="col-xl-6">
                                             <form>

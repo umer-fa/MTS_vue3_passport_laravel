@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\bussiness;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -46,6 +47,21 @@ class AuthController extends Controller
                 return response()->json(['error' => 'UnAuthorised Access'], 401);
                 exit();
             }
+            app()->configPath('database.connections.tenant.database',$request->username);
+            DB::purge('mysql');
+            DB::setDefaultConnection('tenant');
+            \config([
+                'database.connections.tenant.database' => $request->username,
+            ]);
+            DB::reconnect();
+            Artisan::call('migrate', array('--path' => 'database/migrations/users_migrations', '--database' => 'tenant', '--force' => true));
+            DB::purge('tenant');
+            DB::setDefaultConnection('mysql');
+            config([
+                'database.connections.mysql.database' => env('DB_DATABASE', 'vue3_jwt'),
+            ]);
+            DB::reconnect("mysql");
+            DB::setDefaultConnection('mysql');
             $accessToken = auth()->user()->createToken('authToken')->accessToken;
             $cookie = $this->getCookieDetails($accessToken);
             return response()->json(['status' => true, 'message' => 'User successfully register.',"success"=>true,'user' => (array)auth()->user(), 'access_token' => true], 200)->cookie($cookie['name'], $cookie['value'],

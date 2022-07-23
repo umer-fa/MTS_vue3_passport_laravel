@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Auth;
@@ -18,7 +19,14 @@ class IsActiveToken
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
-        dd(Auth::user()->token()->id);
+        if(Auth::user()) {
+            $tk = Auth::user()->token();
+            if($tk) {
+                if (Carbon::parse($tk->expires_at) < Carbon::now()) {
+                    dd("Token Expired Check middleware isActiveToken");
+                }
+            }
+        }
         return $response;
     }
 }

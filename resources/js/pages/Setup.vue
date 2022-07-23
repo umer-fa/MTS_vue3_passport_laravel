@@ -349,7 +349,7 @@
                     <br>
                     <div class="row justify-content-center">
                         <div class="col-3">
-                            <img src="images/GwStPmg.png" class="fit-image">
+                            <img src="{{}}images/GwStPmg.png" class="fit-image">
                         </div>
                     </div>
                     <br><br>

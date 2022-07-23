@@ -20338,19 +20338,8 @@ __webpack_require__.r(__webpack_exports__);
       data: []
     };
   },
-  created: function created() {// if (window.Laravel.user) {
-    //     this.name = window.Laravel.user.name;
-    //     if(window.Laravel.user.profile_done==0){
-    //         this.$router.push('/setup');
-    //     }
-    // }
+  created: function created() {// this.$store.dispatch('deleteToken');
   },
-  // beforeRouteEnter(to, from, next) {
-  //     if (!this.$store.state.access_token) {
-  //         window.location.href = "/laravel-9-vue-3/public/login";
-  //     }
-  //     next();
-  // },
   methods: {
     getData: function getData(e) {
       var _this = this;
@@ -23433,7 +23422,7 @@ var _hoisted_12 = {
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "col-xl-6"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "fillow/images/signup2.jpg",
+  src: "fillow/images/circle-hunt.png",
   style: {
     "width": "100%",
     "height": "70%",
@@ -24157,7 +24146,7 @@ var _hoisted_284 = {
   "class": "card card1"
 };
 
-var _hoisted_285 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-body\"><h2 class=\"purple-text text-center\"><strong>SUCCESS !</strong></h2><br><div class=\"row justify-content-center\"><div class=\"col-3\"><img src=\"images/GwStPmg.png\" class=\"fit-image\"></div></div><br><br><div class=\"row justify-content-center\"><div class=\"col-7 text-center\"><h5 class=\"purple-text text-center\">You Have Successfully SetUp Your Business</h5></div></div></div>", 1);
+var _hoisted_285 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-body\"><h2 class=\"purple-text text-center\"><strong>SUCCESS !</strong></h2><br><div class=\"row justify-content-center\"><div class=\"col-3\"><img src=\"{{}}images/GwStPmg.png\" class=\"fit-image\"></div></div><br><br><div class=\"row justify-content-center\"><div class=\"col-7 text-center\"><h5 class=\"purple-text text-center\">You Have Successfully SetUp Your Business</h5></div></div></div>", 1);
 
 var _hoisted_286 = [_hoisted_285];
 var _hoisted_287 = {
