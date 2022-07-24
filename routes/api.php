@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth:api','cors']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::group(['middleware' => ['IsActiveToken']], function () {
         Route::post('me', [AuthController::class, 'me']);
+        Route::post('addcategory', [\App\Http\Controllers\CategoryController::class, 'add_new']);
+        Route::post('parentcategory', [\App\Http\Controllers\CategoryController::class, 'get_parent']);
     });
 });
 

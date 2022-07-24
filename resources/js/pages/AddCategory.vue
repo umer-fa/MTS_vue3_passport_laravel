@@ -17,11 +17,18 @@
                                 <label class="form-label">Parent Category<span class="text-danger">*</span></label>
                                 <select type="text" class="form-control" v-model="form.parent_id">
                                     <option value="0" selected>Parent Category</option>
-                                    <option v-for='parnt in parent' v-bind:value='parnt.id'>{{parnt.cat_name}}</option>
+                                    <option v-for='parnt in parent' v-bind:value='parnt.id'>{{parnt.name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Active/InActive</label>
+                                <select type="text" class="form-control" v-model="form.is_active">
+                                    <option value="1" selected>Active</option>
+                                    <option value="0" selected>In Active</option>
+                                </select>
+                            </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Category Image</label>
                                 <div class="row">
@@ -35,6 +42,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6 text-right"></div>
                             <div class="mb-3 col-md-6 text-right">
                                 <label class="text-success m-2">{{success_msg}}</label>
                                 <label class="text-danger m-2">{{error_msg}}</label>
@@ -60,10 +70,11 @@ export default {
             success_msg:"",
             error_msg:"",
             parent:[],
-            form:{
+            form:{ //`name``image``parent_id``is_active`
                 id: 0,
                 name:'',
                 parent_id:0,
+                is_active:1,
                 file: '',
                 filename:'',
             }
@@ -73,7 +84,7 @@ export default {
         // if (window.Laravel.user) {
         //     this.name = window.Laravel.user.name
         // }
-        // this.getParent();
+        this.getParent();
         const params = (new URL(document.location)).searchParams;
         if(params.get('id')){
             this.form.id = params.get('id');
@@ -82,19 +93,17 @@ export default {
         }
     },
     methods:{
-        // getParent(){
-        //     this.$axios.get('sanctum/csrf-cookie').then(response => {
-        //         this.$axios.post("api/parentcategory").then(response => {
-        //             if(response.data.success){
-        //                 this.parent =  response.data.data;
-        //             }
-        //             else{
-        //                 this.error_msg = response.data.message;
-        //                 this.success_msg = null;
-        //             }
-        //         });
-        //     })
-        // },
+        getParent(){
+            this.$axios.post("api/parentcategory").then(response => {
+                if(response.data.success){
+                    this.parent =  response.data.data;
+                }
+                else{
+                    this.error_msg = response.data.message;
+                    this.success_msg = null;
+                }
+            });
+        },
         Back(){
             this.$router.back();
         },
@@ -108,19 +117,18 @@ export default {
                 let formData = new FormData();
                 formData.append('name', this.form.name);
                 formData.append('file', this.form.file);
+                formData.append('is_active', this.form.is_active);
                 formData.append('parent_id', this.form.parent_id);
-                this.$axios.get('sanctum/csrf-cookie').then(response => {
-                    this.$axios.post("api/addcategory", formData,{'content-type': 'multipart/form-data'}).then(response => {
-                        if(response.data.success){
-                            this.success_msg = response.data.message;
-                            this.error_msg =null;
-                        }
-                        else{
-                            this.error_msg = response.data.message;
-                            this.success_msg = null;
-                        }
-                    });
-                })
+                this.$axios.post("api/addcategory", formData,{'content-type': 'multipart/form-data'}).then(response => {
+                    if(response.data.success){
+                        this.success_msg = response.data.message;
+                        this.error_msg =null;
+                    }
+                    else{
+                        this.error_msg = response.data.message;
+                        this.success_msg = null;
+                    }
+                });
             }else{
                 this.error_msg = "Category field required";
                 this.success_msg = null;

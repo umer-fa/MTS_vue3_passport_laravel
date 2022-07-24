@@ -19927,9 +19927,11 @@ __webpack_require__.r(__webpack_exports__);
       error_msg: "",
       parent: [],
       form: {
+        //`name``image``parent_id``is_active`
         id: 0,
         name: '',
         parent_id: 0,
+        is_active: 1,
         file: '',
         filename: ''
       }
@@ -19939,7 +19941,7 @@ __webpack_require__.r(__webpack_exports__);
     // if (window.Laravel.user) {
     //     this.name = window.Laravel.user.name
     // }
-    // this.getParent();
+    this.getParent();
     var params = new URL(document.location).searchParams;
 
     if (params.get('id')) {
@@ -19949,24 +19951,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    // getParent(){
-    //     this.$axios.get('sanctum/csrf-cookie').then(response => {
-    //         this.$axios.post("api/parentcategory").then(response => {
-    //             if(response.data.success){
-    //                 this.parent =  response.data.data;
-    //             }
-    //             else{
-    //                 this.error_msg = response.data.message;
-    //                 this.success_msg = null;
-    //             }
-    //         });
-    //     })
-    // },
+    getParent: function getParent() {
+      var _this = this;
+
+      this.$axios.post("api/parentcategory").then(function (response) {
+        if (response.data.success) {
+          _this.parent = response.data.data;
+        } else {
+          _this.error_msg = response.data.message;
+          _this.success_msg = null;
+        }
+      });
+    },
     Back: function Back() {
       this.$router.back();
     },
     Save: function Save() {
-      var _this = this;
+      var _this2 = this;
 
       if (this.form.name != '') {
         var config = {
@@ -19977,19 +19978,18 @@ __webpack_require__.r(__webpack_exports__);
         var formData = new FormData();
         formData.append('name', this.form.name);
         formData.append('file', this.form.file);
+        formData.append('is_active', this.form.is_active);
         formData.append('parent_id', this.form.parent_id);
-        this.$axios.get('sanctum/csrf-cookie').then(function (response) {
-          _this.$axios.post("api/addcategory", formData, {
-            'content-type': 'multipart/form-data'
-          }).then(function (response) {
-            if (response.data.success) {
-              _this.success_msg = response.data.message;
-              _this.error_msg = null;
-            } else {
-              _this.error_msg = response.data.message;
-              _this.success_msg = null;
-            }
-          });
+        this.$axios.post("api/addcategory", formData, {
+          'content-type': 'multipart/form-data'
+        }).then(function (response) {
+          if (response.data.success) {
+            _this2.success_msg = response.data.message;
+            _this2.error_msg = null;
+          } else {
+            _this2.error_msg = response.data.message;
+            _this2.success_msg = null;
+          }
         });
       } else {
         this.error_msg = "Category field required";
@@ -20086,7 +20086,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "Add Product",
   data: function data() {
     return {
-      name: null
+      name: null,
+      form: {}
     };
   } // created() {
   //     if (window.Laravel.user) {
@@ -21357,30 +21358,65 @@ var _hoisted_15 = {
 
 var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "form-label"
+}, "Active/InActive", -1
+/* HOISTED */
+);
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "1",
+  selected: ""
+}, "Active", -1
+/* HOISTED */
+);
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "0",
+  selected: ""
+}, "In Active", -1
+/* HOISTED */
+);
+
+var _hoisted_19 = [_hoisted_17, _hoisted_18];
+var _hoisted_20 = {
+  "class": "mb-3 col-md-6"
+};
+
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "form-label"
 }, "Category Image", -1
 /* HOISTED */
 );
 
-var _hoisted_17 = {
+var _hoisted_22 = {
   "class": "row"
 };
-var _hoisted_18 = {
+var _hoisted_23 = {
   "class": "mb-3 col-md-4"
 };
-var _hoisted_19 = {
+var _hoisted_24 = {
   "class": "mb-3 col-md-6"
 };
-var _hoisted_20 = {
+var _hoisted_25 = {
   id: "preview"
 };
-var _hoisted_21 = ["src"];
-var _hoisted_22 = {
+var _hoisted_26 = ["src"];
+var _hoisted_27 = {
+  "class": "row"
+};
+
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "mb-3 col-md-6 text-right"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_29 = {
   "class": "mb-3 col-md-6 text-right"
 };
-var _hoisted_23 = {
+var _hoisted_30 = {
   "class": "text-success m-2"
 };
-var _hoisted_24 = {
+var _hoisted_31 = {
   "class": "text-danger m-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -21411,37 +21447,45 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [_hoisted_12, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.parent, function (parnt) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       value: parnt.id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(parnt.cat_name), 9
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(parnt.name), 9
     /* TEXT, PROPS */
     , _hoisted_13);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.parent_id]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.parent_id]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    type: "text",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $data.form.is_active = $event;
+    })
+  }, _hoisted_19, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.is_active]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "file",
     accept: "image/png, image/jpeg",
     "class": "form-control",
-    onChange: _cache[3] || (_cache[3] = function () {
+    onChange: _cache[4] || (_cache[4] = function () {
       return $options.onFileChange && $options.onFileChange.apply($options, arguments);
     }),
     placeholder: "Image"
   }, null, 32
   /* HYDRATE_EVENTS */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [$data.url ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [$data.url ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", {
     key: 0,
     src: $data.url,
     width: 200,
     height: "100"
   }, null, 8
   /* PROPS */
-  , _hoisted_21)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.success_msg), 1
+  , _hoisted_26)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.success_msg), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.error_msg), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.error_msg), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    onClick: _cache[4] || (_cache[4] = function () {
+    onClick: _cache[5] || (_cache[5] = function () {
       return $options.Save && $options.Save.apply($options, arguments);
     }),
     "class": "btn btn-primary pull-right"

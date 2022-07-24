@@ -80,6 +80,9 @@ export default {
     data() {
         return {
             name: null,
+            form:{
+
+            }
         }
     },
     // created() {
