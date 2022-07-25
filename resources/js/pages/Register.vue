@@ -190,7 +190,7 @@
                             this.$axios.post('api/register', this.form)
                                 .then(response => {
                                     if (response.data.success) {
-                                        // console.log(response.data);
+                                        console.log(response.data);
                                         this.save_token(response.data.access_token);
                                         this.save_user(response.data.user);
                                         this.save_profile(response.data.user.profile_done);

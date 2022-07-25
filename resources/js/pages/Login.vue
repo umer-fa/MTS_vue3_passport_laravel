@@ -82,7 +82,7 @@
                     })
                     .then(response => {
                         if (response.data.success) {
-                            console.log(response.data.user);
+                            // console.log(response.data.user);
                             this.save_token(response.data.access_token);
                             this.save_user(response.data.user);
                             this.save_profile(response.data.user.profile_done);

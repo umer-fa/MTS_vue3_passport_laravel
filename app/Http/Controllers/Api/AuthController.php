@@ -42,11 +42,12 @@ class AuthController extends Controller
         $user->save();
         if($user){
             $schemaName = $request->username;
-            DB::statement('CREATE DATABASE '.$schemaName);
             if(! auth()->attempt($requestData)){
                 return response()->json(['error' => 'UnAuthorised Access'], 401);
                 exit();
             }
+            $accessToken = auth()->user()->createToken('authToken')->accessToken;
+            DB::statement('CREATE DATABASE '.$schemaName);
             app()->configPath('database.connections.tenant.database',$request->username);
             DB::purge('mysql');
             DB::setDefaultConnection('tenant');
@@ -62,10 +63,11 @@ class AuthController extends Controller
             ]);
             DB::reconnect("mysql");
             DB::setDefaultConnection('mysql');
-            $accessToken = auth()->user()->createToken('authToken')->accessToken;
+
             $cookie = $this->getCookieDetails($accessToken);
-            return response()->json(['status' => true, 'message' => 'User successfully register.',"success"=>true,'user' => (array)auth()->user(), 'access_token' => true], 200)->cookie($cookie['name'], $cookie['value'],
-                $cookie['minutes'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly'], $cookie['samesite']);
+            $res =['status' => true, 'message' => 'User successfully register.',"success"=>true,'user' => Auth::user(), 'access_token' => true];
+            return response()->json($res, 200)
+                ->cookie($cookie['name'], $cookie['value'], $cookie['minutes'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly'], $cookie['samesite']);
 //            return response([ 'status' => true, 'message' => 'User successfully register.' ], 200);
         }else{
             return response([ 'status' => false, 'message' => 'SomeThing getting wrong.' ], 422);
@@ -91,7 +93,7 @@ class AuthController extends Controller
         }
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
         $cookie = $this->getCookieDetails($accessToken);
-        return response()->json(["success"=>true,'user' => auth()->user(), 'access_token' => true], 200)->cookie($cookie['name'], $cookie['value'],
+        return response()->json(["success"=>true,'user' => Auth::user(), 'access_token' => true], 200)->cookie($cookie['name'], $cookie['value'],
             $cookie['minutes'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly'], $cookie['samesite']);
     }
 

@@ -29,7 +29,7 @@ import Company from "../pages/Company";
 export const routes = [
 
     {name: 'Home', path: '/', component: Home},
-    {name: 'ali', path: '/about', component: About},
+    {name: 'About', path: '/about', component: About},
     {name: 'Register', path: '/register', component: Register},
     {name: 'Login', path: '/login', component: Login},
     {name: 'Dashboard', path: '/dashboard', component: Dashboard,beforeEnter:authfunction},
@@ -77,7 +77,7 @@ function authfunction(to, from, next) {
 
 router.beforeEach((to, from, next) => {
     if (localStorage.getItem('access_token')) {
-        if(to.path == "/login" || to.path=="/register"){
+        if(to.path == "/login" || to.path=="/register" || to.path=="/" || to.path=="/about"){
             router.push('/dashboard');
         }else{
             next();
