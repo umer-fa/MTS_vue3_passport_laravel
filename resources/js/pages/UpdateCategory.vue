@@ -17,7 +17,7 @@
                                 <label class="form-label">Parent Category<span class="text-danger">*</span></label>
                                 <select type="text" class="form-control" v-model="form.parent_id">
                                     <option value="0" selected>Parent Category</option>
-                                    <option v-for='parnt in parent' v-bind:value='parnt.id'>{{parnt.cat_name}}</option>
+                                    <option v-for='parnt in parent' v-bind:value='parnt.id'>{{parnt.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ export default {
                 this.$axios.post("api/getcategory", {"id":this.form.id},{'content-type': 'multipart/form-data'}).then(response => {
                     if(response.data.success){
                         this.success_msg = response.data.message;
-                        this.form.name = response.data.data.cat_name;
+                        this.form.name = response.data.data.name;
                         this.form.parent_id = response.data.data.parent_id;
                         this.url = response.data.data.image;
                         this.error_msg =null;

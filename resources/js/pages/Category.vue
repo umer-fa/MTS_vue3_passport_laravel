@@ -18,7 +18,7 @@
                     <tbody>
                     <tr v-for="(category, index) in categories">
                         <td>{{++index}}</td>
-                        <td>{{category.cat_name}}</td>
+                        <td>{{category.name}}</td>
                         <td>{{category.parent_id? parents[category.parent_id]:'.....'}}</td>
                         <td><img v-bind:src="category.image" class="redius" width="50" height="50" v-bind:alt="category.cat_name" /></td>
                         <td>
@@ -50,10 +50,10 @@ export default {
         // }
     },
     beforeMount(){
-        // axios.post('api/category').then(response => {
-        //     this.categories = response.data.message;
-        //     this.parents = response.data.parents
-        // });
+        axios.post('api/category').then(response => {
+            this.categories = response.data.data;
+            this.parents = response.data.parents
+        });
     },
 }
 </script>

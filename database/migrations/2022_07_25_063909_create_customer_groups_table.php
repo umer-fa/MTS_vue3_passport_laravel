@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();//`name`,`image`,`parent_id`,`is_active`,`bus_id`,`location_id`
-            $table->string("name");
-            $table->string("image")->nullable();
-            $table->integer('parent_id')->default(0);
+        Schema::create('customer_groups', function (Blueprint $table) {
+            $table->id();//`name`,`percentage`,`is_active`,`bus_id`,`location_id`
+            $table->string('name');
+            $table->integer("percentage");
             $table->tinyInteger("is_active")->default(1);
-            $table->integer("bus_id")->nullable();
-            $table->integer("localtion_id")->nullable();
             $table->timestamps();
+            $table->integer('bus_id');
+            $table->integer('location_id');
         });
     }
 
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('customer_groups');
     }
 };

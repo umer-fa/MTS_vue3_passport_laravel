@@ -20246,10 +20246,13 @@ __webpack_require__.r(__webpack_exports__);
     //     this.name = window.Laravel.user.name
     // }
   },
-  beforeMount: function beforeMount() {// axios.post('api/category').then(response => {
-    //     this.categories = response.data.message;
-    //     this.parents = response.data.parents
-    // });
+  beforeMount: function beforeMount() {
+    var _this = this;
+
+    axios.post('api/category').then(function (response) {
+      _this.categories = response.data.data;
+      _this.parents = response.data.parents;
+    });
   }
 });
 
@@ -20963,7 +20966,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           if (response.data.success) {
             _this.success_msg = response.data.message;
-            _this.form.name = response.data.data.cat_name;
+            _this.form.name = response.data.data.name;
             _this.form.parent_id = response.data.data.parent_id;
             _this.url = response.data.data.image;
             _this.error_msg = null;
@@ -22052,7 +22055,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.categories, function (category, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(++index), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.cat_name), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.parent_id ? $data.parents[category.parent_id] : '.....'), 1
     /* TEXT */
@@ -24577,7 +24580,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [_hoisted_12, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.parent, function (parnt) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       value: parnt.id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(parnt.cat_name), 9
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(parnt.name), 9
     /* TEXT, PROPS */
     , _hoisted_13);
   }), 256
