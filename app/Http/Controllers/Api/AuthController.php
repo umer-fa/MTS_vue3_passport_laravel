@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\bussiness;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -205,6 +207,8 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
+        $ac = Product::all();
+        dd($ac);
         $user = $request->user();
         return response()->json(['user' => $user], 200);
     }

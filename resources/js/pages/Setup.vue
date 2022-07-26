@@ -313,7 +313,7 @@
                                     <label class="form-label">Business Category</label>
                                     <small class="text-xs text-danger" v-if="category">{{category}}</small>
                                     <select class="form-control" v-model="biz_form.category">
-                                        <option label="">Select a Category</option>
+                                        <option value="0">Select a Category</option>
                                         <option>Hajam ki shop</option>
                                         <option>karakri Shop</option>
                                         <option>Pansar Shop</option>
@@ -324,7 +324,7 @@
                                     <label class="form-label">No of Shops</label>
                                     <small class="text-xs text-danger" v-if="noofshop">{{noofshop}}</small>
                                     <select class="form-control" v-model="biz_form.noofshop">
-                                        <option label="">Select No of Shops</option>
+                                        <option value="0">Select No of Shops</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -413,8 +413,8 @@ export default {
             //biz error fields
             billing_cycle:'',
             bus_name:'',
-            category:'',
-            noofshop:'',
+            category:0,
+            noofshop:0,
             package:'',
             timezone:'',
             user_id:null,

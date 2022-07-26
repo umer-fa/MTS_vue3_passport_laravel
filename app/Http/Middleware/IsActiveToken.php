@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class IsActiveToken
 {
@@ -18,6 +20,13 @@ class IsActiveToken
      */
     public function handle(Request $request, Closure $next)
     {
+
+//        DB::disconnect();
+//        \Config::set('database.tenant', Auth::user()->username);
+//        DB::reconnect();
+         DB::purge('tenant');
+        \Config::set('database.connections.tenant.database', Auth::user()->username);
+         DB::connection('tenant')->reconnect();
         $response = $next($request);
         if(Auth::user()) {
             $tk = Auth::user()->token();
