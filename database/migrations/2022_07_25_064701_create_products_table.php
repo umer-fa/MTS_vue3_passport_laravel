@@ -36,7 +36,6 @@ return new class extends Migration
             $table->integer('tax_method')->nullable();
             $table->longText('image')->nullable();
             $table->string('file')->nullable();
-            $table->tinyInteger('file')->nullable();
             $table->tinyInteger('is_diffPrice')->nullable();
             $table->tinyInteger('featured')->default(0)->nullable();
             $table->string('product_list')->nullable();

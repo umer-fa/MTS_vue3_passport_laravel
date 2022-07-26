@@ -20789,12 +20789,12 @@ __webpack_require__.r(__webpack_exports__);
       },
       biz_form: {
         user_id: 0,
-        bus_name: null,
-        "package": null,
-        billing_cycle: null,
-        timezone: null,
-        category: null,
-        noofshop: null
+        bus_name: '',
+        "package": '',
+        billing_cycle: '',
+        timezone: '',
+        category: '',
+        noofshop: ''
       },
       success_msg: '',
       error_msg: '',
@@ -22207,9 +22207,15 @@ var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_12 = {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "col-xl-5 col-sm-6"
-};
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                        {{this.$store.state.profile_done}} ayaha ha"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  src: "fillow/images/chart.png",
+  alt: "",
+  "class": "sd-shape"
+})], -1
+/* HOISTED */
+);
 
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "col-xl-12"
@@ -23101,9 +23107,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.getData && $options.getData.apply($options, arguments);
     }),
     "class": "btn btn-rounded fs-18 font-w500"
-  }, "Try Free Now")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$store.state.profile_done) + " ayaha ha ", 1
-  /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                        <img src=\"fillow/images/chart.png\" alt=\"\" class=\"sd-shape\">")])])])]), _hoisted_13, _hoisted_14])]), _hoisted_16])])]);
+  }, "Try Free Now")]), _hoisted_12])])]), _hoisted_13, _hoisted_14])]), _hoisted_16])])]);
 }
 
 /***/ }),

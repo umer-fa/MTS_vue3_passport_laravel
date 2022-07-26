@@ -13,8 +13,8 @@
                                         <a href="javascript:void(0);" @click="getData" class="btn btn-rounded  fs-18 font-w500">Try Free Now</a>
                                     </div>
                                     <div class="col-xl-5 col-sm-6">
-                                        {{this.$store.state.profile_done}} ayaha ha
-<!--                                        <img src="fillow/images/chart.png" alt="" class="sd-shape">-->
+<!--                                        {{this.$store.state.profile_done}} ayaha ha-->
+                                        <img src="fillow/images/chart.png" alt="" class="sd-shape">
                                     </div>
                                 </div>
                             </div>
