@@ -20,13 +20,11 @@ class IsActiveToken
      */
     public function handle(Request $request, Closure $next)
     {
-
-//        DB::disconnect();
-//        \Config::set('database.tenant', Auth::user()->username);
-//        DB::reconnect();
-         DB::purge('tenant');
-        \Config::set('database.connections.tenant.database', Auth::user()->username);
-         DB::connection('tenant')->reconnect();
+        if(Auth::user()){
+            DB::purge('tenant');
+            \Config::set('database.connections.tenant.database', Auth::user()->username);
+            DB::connection('tenant')->reconnect();
+        }
         $response = $next($request);
         if(Auth::user()) {
             $tk = Auth::user()->token();

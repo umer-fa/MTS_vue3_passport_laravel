@@ -207,10 +207,9 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
-        $ac = Product::all();
-        dd($ac);
+        $pro = Product::all();
         $user = $request->user();
-        return response()->json(['user' => $user], 200);
+        return response()->json(['pro'=>$pro,'user' => $user], 200);
     }
 
     public function logout (Request $request)
