@@ -49,22 +49,22 @@ class AuthController extends Controller
                 exit();
             }
             $accessToken = auth()->user()->createToken('authToken')->accessToken;
-            DB::statement('CREATE DATABASE '.$schemaName);
-            app()->configPath('database.connections.tenant.database',$request->username);
-            DB::purge('mysql');
-            DB::setDefaultConnection('tenant');
-            \config([
-                'database.connections.tenant.database' => $request->username,
-            ]);
-            DB::reconnect();
-            Artisan::call('migrate', array('--path' => 'database/migrations/users_migrations', '--database' => 'tenant', '--force' => true));
-            DB::purge('tenant');
-            DB::setDefaultConnection('mysql');
-            config([
-                'database.connections.mysql.database' => env('DB_DATABASE', 'vue3_jwt'),
-            ]);
-            DB::reconnect("mysql");
-            DB::setDefaultConnection('mysql');
+//            DB::statement('CREATE DATABASE '.$schemaName);
+//            app()->configPath('database.connections.tenant.database',$request->username);
+//            DB::purge('mysql');
+//            DB::setDefaultConnection('tenant');
+//            \config([
+//                'database.connections.tenant.database' => $request->username,
+//            ]);
+//            DB::reconnect();
+//            Artisan::call('migrate', array('--path' => 'database/migrations/users_migrations', '--database' => 'tenant', '--force' => true));
+//            DB::purge('tenant');
+//            DB::setDefaultConnection('mysql');
+//            config([
+//                'database.connections.mysql.database' => env('DB_DATABASE', 'vue3_jwt'),
+//            ]);
+//            DB::reconnect("mysql");
+//            DB::setDefaultConnection('mysql');
 
             $cookie = $this->getCookieDetails($accessToken);
             $res =['status' => true, 'message' => 'User successfully register.',"success"=>true,'user' => Auth::user(), 'access_token' => true];
