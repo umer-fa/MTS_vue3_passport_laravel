@@ -20354,8 +20354,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$axios.post('api/me').then(function (response) {
         if (response.data) {
-          _this.data = response.data;
-          console.log(response.data);
+          _this.data = response.data; // console.log(response.data);
         } else {
           console.log(response);
         }
@@ -20808,8 +20807,8 @@ __webpack_require__.r(__webpack_exports__);
       //biz error fields
       billing_cycle: '',
       bus_name: '',
-      category: '',
-      noofshop: '',
+      category: 0,
+      noofshop: 0,
       "package": '',
       timezone: '',
       user_id: null
@@ -24118,7 +24117,7 @@ var _hoisted_265 = {
 };
 
 var _hoisted_266 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  label: ""
+  value: "0"
 }, "Select a Category", -1
 /* HOISTED */
 );
@@ -24156,7 +24155,7 @@ var _hoisted_274 = {
 };
 
 var _hoisted_275 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  label: ""
+  value: "0"
 }, "Select No of Shops", -1
 /* HOISTED */
 );

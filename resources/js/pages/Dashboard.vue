@@ -679,7 +679,7 @@ export default {
             .then(response => {
                 if(response.data) {
                     this.data = response.data;
-                    console.log(response.data);
+                    // console.log(response.data);
                 } else {
                     console.log(response);
                 }

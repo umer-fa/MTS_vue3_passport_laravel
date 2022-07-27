@@ -21,9 +21,15 @@ class IsActiveToken
     public function handle(Request $request, Closure $next)
     {
         if(Auth::user()){
-            DB::purge('tenant');
-            \Config::set('database.connections.tenant.database', Auth::user()->username);
-            DB::connection('tenant')->reconnect();
+            if(Auth::user()->status>0){
+                DB::purge('tenant');
+                \Config::set('database.connections.tenant.database', Auth::user()->username);
+                DB::connection('tenant')->reconnect();
+            }else{
+                DB::purge('tenant');
+                \Config::set('database.connections.tenant.database', \Config::get('database.connections.mysql.database'));
+                DB::connection('tenant')->reconnect();
+            }
         }
         $response = $next($request);
         if(Auth::user()) {
