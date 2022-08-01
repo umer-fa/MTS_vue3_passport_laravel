@@ -58,7 +58,6 @@ export const routes = [
     {name: 'Company', path: '/company', component: Company,beforeEnter:authfunction},
 
     {name:'NotFound',path:'/:pathMatch(.*)*',component:NotFound , meta:{title:"Page Not Found"},beforeEnter:authfunction}
-
 ];
 
 const router = VueRouter.createRouter({
